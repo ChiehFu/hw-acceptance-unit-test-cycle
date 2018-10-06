@@ -32,3 +32,31 @@ Scenario: can't find similar movies if we don't know director (sad path)
   When  I follow "Find Movies With Same Director"
   Then  I should be on the home page
   And   I should see "'Alien' has no director info"
+  
+Scenario: delete movie
+  Given I am on the details page for "THX-1138"
+  And  I press "Delete"
+  Then  I should be on the home page 
+  And   I should see "Movie 'THX-1138' deleted."
+  
+Scenario: add movie
+  Given I am on the home page
+  And  I follow "Add new movie"
+  Then I should be on the new movie page
+  When I fill in "Title" with "The Matrix"
+  And I select "R" from "Rating"
+  And I press "Save Changes"
+  Then I should be on the home page
+  And I should see "The Matrix was successfully created."
+  
+Scenario: sort movies alphabetically
+  Given I am on the home page
+  When I follow "Movie Title"
+  Then I should see "Blade Runner" before "Star Wars"
+  And I should see "Alien" before "Star Wars"
+
+Scenario: sort movies in increasing order of release date
+  Given I am on the home page
+  When I follow "Release Date"
+  Then I should see "Star Wars" before "Alien"
+  And I should see "Alien" before "Blade Runner"
