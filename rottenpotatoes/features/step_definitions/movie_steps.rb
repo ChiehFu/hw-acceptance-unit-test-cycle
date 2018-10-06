@@ -16,3 +16,9 @@ Given(/^the following movies exist$/) do |table|
       Movie.create!(movie)
   end
 end
+
+Then(/^I should see "(.*)" before "(.*)"$/) do |e1, e2|
+  first_position = page.body.index(e1)
+  second_position = page.body.index(e2)
+  first_position.should < second_position
+end
